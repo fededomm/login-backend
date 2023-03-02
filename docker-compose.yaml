@@ -1,0 +1,75 @@
+version: "3"
+services:
+
+  # Postgres
+  postgres:
+    image: postgres:latest
+    volumes:
+      - pg-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    networks: 
+      - keycloak-dev-network
+
+  # Keycloak
+  keycloak:
+    image: quay.io/keycloak/keycloak:20.0.0 
+    command: start-dev 
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres 
+      KC_DB_URL_DATABASE: keycloak
+      KC_DB_SCHEMA: public
+      KC_DB_USER: keycloak
+      KC_DB_PASSWORD: password
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+      KC_LOG: console
+      KC_LOG_CONSOLE_COLOR: true
+    ports:
+      - "8443:8080"
+    depends_on:
+      - postgres
+    networks:
+      - keycloak-dev-network
+
+  # KrakenD
+  krakend:
+    # The :watch image restarts the service automatically when the configuration files change.
+    # Do not use this image in production, it's meant to speed up your testing and development.
+    image: devopsfaith/krakend:watch
+    volumes:
+      - ./configuration/krakend:/etc/krakend
+    ports:
+      - "8090:8090"
+    command: ["run", "-d", "-c", "/etc/krakend/krakend.yaml"]
+    networks:
+      - keycloak-dev-network
+
+  # PGAdmin
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    networks: 
+      - keycloak-dev-network
+
+
+volumes:
+  pg-data:
+  pgadmin-data:
+
+networks:
+  keycloak-dev-network:
+    driver: bridge
