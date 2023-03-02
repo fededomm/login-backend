@@ -8,4 +8,3 @@ config:
     router: "0.0.0.0:8085"
   auth:
     params:
-      
