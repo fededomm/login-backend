@@ -37,5 +37,4 @@ func Token(c *gin.Context) {
 }
 func TestAuthCode(c *gin.Context) {
 	fmt.Printf("%v", c.Params)
-
 }

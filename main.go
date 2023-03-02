@@ -1,16 +1,18 @@
 package main
 
 import (
+	_ "embed"
 	"fmt"
 	"log"
 
 	"login-backend/rest"
 )
 
+//go:embed banner.txt
 var banner []byte
 
-//go:embed banner.txt
 func main() {
+	
 	cfg, err := ReadConfig()
 	if err != nil {
 		log.Fatal(err)

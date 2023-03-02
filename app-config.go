@@ -66,7 +66,7 @@ func ReadConfig() (*Config, error) {
 	} else {
 		log.Warn().Msgf("The config path variable %s has not been set. Reverting to bundled configuration", ConfigFileEnvVar)
 		cfgContent = util.ResolveConfigValueToByteArray(projectConfigFile)
-		return nil, fmt.Errorf("the config path variable %s has not been set; please set", ConfigFileEnvVar)
+		//return nil, fmt.Errorf("the config path variable %s has not been set; please set", ConfigFileEnvVar)
 	}
 
 	appCfg := DefaultConfig
