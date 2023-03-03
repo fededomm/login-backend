@@ -1,29 +1,34 @@
 package routes
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"log"
+	"login-backend/configuration"
 	"net/http"
-	"strings"
 
 	"github.com/gin-gonic/gin"
 )
 
 type QueryParam struct {
-	GrantType   string `form:"grant-type"`
-	AuthCode    string `form:"authcode"`
-	RedirectUrl string `form:"redirect-url"`
+	GrantType   string `form:"grant-type" json:"grant-type"`
+	AuthCode    string `form:"authcode" json:"authcode"`
+	RedirectUrl string `form:"redirect-url" json:"redirect-url"`
 }
 
 func (q *QueryParam) Token(c *gin.Context) {
-	var QueryParam QueryParam
-	if err := c.ShouldBindQuery(&QueryParam); err != nil {
+	QueryParam := new(QueryParam)
+	conf := new(configuration.Param)
+
+	buf := new(bytes.Buffer)
+	err := json.NewEncoder(buf).Encode(c.ShouldBindQuery(&QueryParam))
+	if err != nil {
 		log.Fatal(err)
-	} else {
-		log.Println(QueryParam)
 	}
-	request, err := http.NewRequest("POST", "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?", strings.NewReader("ciao"))
+
+	request, err := http.NewRequest("POST", conf.TokenUrl, (buf))
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err})
