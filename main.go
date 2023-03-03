@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"log"
 
-	"login-backend/rest"
+	"login-backend/routes"
 )
 
 //go:embed banner.txt
@@ -19,5 +19,5 @@ func main() {
 	}
 
 	fmt.Println(string(banner))
-	rest.Init(cfg.App.ServiceName, &cfg.App.GinRouter, cfg.App.Auth.TokenUrl)
+	routes.Init(cfg.App.ServiceName, &cfg.App.GinRouter, cfg.App.Auth.TokenUrl)
 }
