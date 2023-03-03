@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"io"
 	"log"
-	config "login-backend/configuration"
+	"login-backend/configuration"
 	"net/http"
 	"net/url"
 	"strings"
@@ -17,18 +17,18 @@ type QueryParam struct {
 	AuthCode    string `form:"authcode" json:"authcode"`
 	RedirectUrl string `form:"redirect_url" json:"redirect-url"`
 }
+type Rest struct {
+	Auth configuration.Param `mapstructure:"param"`
+}
 
-
-func (q *QueryParam) Token(c *gin.Context) {
-
-	config := new(config.Param)
+func (r *Rest) Token(c *gin.Context) {
 
 	param := url.Values{}
 	param.Add("grant_type", "authorization_code")
 	param.Add("code", "b107d0ac-14c5-42de-a837-b82a1567bcac.c8170fef-271b-455c-89b9-6879be075b76.1cc4bda5-5da5-41b8-89e4-5fc86f05f95f")
 	param.Add("redirect_uri", "http://127.0.0.1:8085/test")
 
-	request, err := http.NewRequest("POST", config.TokenUrl, strings.NewReader(param.Encode()))
+	request, err := http.NewRequest("POST", r.Auth.TokenUrl, strings.NewReader(param.Encode()))
 
 	if err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"message": err})

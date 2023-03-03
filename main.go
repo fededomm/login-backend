@@ -19,5 +19,5 @@ func main() {
 	}
 
 	fmt.Println(string(banner))
-	rest.Init(cfg.App.ServiceName, &cfg.App.GinRouter)
+	rest.Init(cfg.App.ServiceName, &cfg.App.GinRouter, cfg.App.Auth.TokenUrl)
 }

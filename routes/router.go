@@ -1,20 +1,19 @@
-package rest
+package routes
 
 import (
 	"login-backend/configuration"
-	"login-backend/routes"
 
 	"github.com/gin-gonic/gin"
 )
 
-func Init(serviceName string, host *configuration.RouterConfig) {
+func Init(serviceName string, host *configuration.RouterConfig, tokenUrl string) {
 
 	router := gin.Default()
 	//router.Use(middle.Middleware())
-
-	rt := new(routes.QueryParam)
-
-	router.GET("/test", routes.TestAuthCode)
+	rt := new(Rest)
+	rt.Auth.TokenUrl = tokenUrl
+	
+	router.GET("/test", TestAuthCode)
 	router.GET("/token", rt.Token)
 	router.Run(host.Router)
 }

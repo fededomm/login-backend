@@ -22,12 +22,10 @@ var DefaultConfig = Config{
 			Router: "0.0.0.0:8085",
 		},
 		ServiceName: "login--backend",
-		Auth: configuration.Authentication{
-			Param: configuration.Param{
-				TokenUrl:     "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?",
-				ClientID:     "my-client",
-				ClientSecret: "TbcVdCDnuu2krqgN8yv3tGdrACIfaWT0",
-			},
+		Auth: configuration.Param{
+			TokenUrl:     "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?",
+			ClientID:     "my-client",
+			ClientSecret: "TbcVdCDnuu2krqgN8yv3tGdrACIfaWT0",
 		},
 	},
 }
@@ -43,9 +41,9 @@ type LogConfig struct {
 }
 
 type AppConfig struct {
-	GinRouter   configuration.RouterConfig   `yaml:"ginrouter" mapstructure:"ginrouter" json:"ginrouter"`
-	ServiceName string                       `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
-	Auth        configuration.Authentication `yaml:"auth" mapstructure:"auth" json:"auth"`
+	GinRouter   configuration.RouterConfig `yaml:"ginrouter" mapstructure:"ginrouter" json:"ginrouter"`
+	ServiceName string                     `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
+	Auth        configuration.Param        `yaml:"auth" mapstructure:"auth" json:"auth"`
 }
 
 // Default config file.
