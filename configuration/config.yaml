@@ -7,4 +7,7 @@ config:
   ginrouter: 
     router: "0.0.0.0:8085"
   auth:
-    params:
+    param:
+      token-url: "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?"
+      client-id: "my-client"
+      client-secret: "TbcVdCDnuu2krqgN8yv3tGdrACIfaWT0"

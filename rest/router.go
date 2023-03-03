@@ -9,10 +9,10 @@ import (
 )
 
 func Init(serviceName string, host *configuration.RouterConfig) {
-	router := gin.New()
+	router := gin.Default()
 	router.Use(middle.Middleware())
 
 	router.GET("/test", routes.TestAuthCode)
-	router.GET("/token", routes.Token)
+	//router.GET("/token", routes.Token)
 	router.Run(host.Router)
 }

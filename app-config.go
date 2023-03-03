@@ -3,7 +3,7 @@ package main
 import (
 	_ "embed"
 	"fmt"
-	AppConf "login-backend/configuration"
+	configuration "login-backend/configuration"
 	"os"
 
 	"github.com/GPA-Gruppo-Progetti-Avanzati-SRL/tpm-common/util"
@@ -18,8 +18,16 @@ var DefaultConfig = Config{
 		EnableJSON: false,
 	},
 	App: AppConfig{
-		GinRouter: AppConf.RouterConfig{
+		GinRouter: configuration.RouterConfig{
 			Router: "0.0.0.0:8085",
+		},
+		ServiceName: "login--backend",
+		Auth: configuration.Authentication{
+			Param: configuration.Param{
+				TokenUrl:     "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?",
+				ClientID:     "my-client",
+				ClientSecret: "TbcVdCDnuu2krqgN8yv3tGdrACIfaWT0",
+			},
 		},
 	},
 }
@@ -35,8 +43,9 @@ type LogConfig struct {
 }
 
 type AppConfig struct {
-	GinRouter   AppConf.RouterConfig `yaml:"ginrouter" mapstructure:"ginrouter" json:"ginrouter"`
-	ServiceName string               `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
+	GinRouter   configuration.RouterConfig   `yaml:"ginrouter" mapstructure:"ginrouter" json:"ginrouter"`
+	ServiceName string                 `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
+	Auth        configuration.Authentication `yaml:"auth" mapstructure:"auth" json:"auth"`
 }
 
 // Default config file.
@@ -66,7 +75,7 @@ func ReadConfig() (*Config, error) {
 	} else {
 		log.Warn().Msgf("The config path variable %s has not been set. Reverting to bundled configuration", ConfigFileEnvVar)
 		cfgContent = util.ResolveConfigValueToByteArray(projectConfigFile)
-		//return nil, fmt.Errorf("the config path variable %s has not been set; please set", ConfigFileEnvVar)
+		return nil, fmt.Errorf("the config path variable %s has not been set; please set", ConfigFileEnvVar)
 	}
 
 	appCfg := DefaultConfig
