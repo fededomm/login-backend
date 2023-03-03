@@ -12,7 +12,7 @@ import (
 var banner []byte
 
 func main() {
-	
+
 	cfg, err := ReadConfig()
 	if err != nil {
 		log.Fatal(err)

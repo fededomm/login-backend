@@ -44,7 +44,7 @@ type LogConfig struct {
 
 type AppConfig struct {
 	GinRouter   configuration.RouterConfig   `yaml:"ginrouter" mapstructure:"ginrouter" json:"ginrouter"`
-	ServiceName string                 `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
+	ServiceName string                       `yaml:"service-name" mapstructure:"service-name" json:"service-name"`
 	Auth        configuration.Authentication `yaml:"auth" mapstructure:"auth" json:"auth"`
 }
 
