@@ -13,7 +13,7 @@ func Init(serviceName string, host *configuration.RouterConfig, tokenUrl string)
 	rt := new(Rest)
 	rt.Auth.TokenUrl = tokenUrl
 
-	router.GET("/test", rt.TestAuthCode)
+	router.GET("/redirect", rt.TestRedirect)
 	router.GET("/token", rt.Token)
 	router.Run(host.Router)
 }

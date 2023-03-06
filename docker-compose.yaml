@@ -18,7 +18,7 @@ services:
   # Keycloak
   keycloak:
     image: quay.io/keycloak/keycloak:20.0.0 
-    command: start-dev 
+    command: start-dev # --log-level=DEBUG
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: postgres 
