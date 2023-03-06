@@ -24,7 +24,7 @@ func (r *Rest) Token(c *gin.Context) {
 
 	param := url.Values{}
 	param.Add("grant_type", "authorization_code")
-	param.Add("code", "1c665384-3dda-4a78-97b8-ebfbf1cddad7.e1272ca4-5271-4493-ae0d-baf4730e651f.1cc4bda5-5da5-41b8-89e4-5fc86f05f95f")
+	param.Add("code", "")
 	param.Add("redirect_uri", "http://127.0.0.1:8085/test")
 
 	request, err := http.NewRequest("POST", r.Auth.TokenUrl, strings.NewReader(param.Encode()))
