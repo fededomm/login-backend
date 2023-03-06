@@ -12,8 +12,8 @@ func Init(serviceName string, host *configuration.RouterConfig, tokenUrl string)
 	//router.Use(middle.Middleware())
 	rt := new(Rest)
 	rt.Auth.TokenUrl = tokenUrl
-	
-	router.GET("/test", TestAuthCode)
+
+	router.GET("/test", rt.TestAuthCode)
 	router.GET("/token", rt.Token)
 	router.Run(host.Router)
 }
