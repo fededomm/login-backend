@@ -31,6 +31,7 @@ require (
 )
 
 require (
+	github.com/gin-contrib/cors v1.4.0
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/lucasjones/reggen v0.0.0-20200904144131-37ba4fa293bb // indirect
 	github.com/mattn/go-colorable v0.1.12 // indirect

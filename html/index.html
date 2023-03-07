@@ -10,7 +10,14 @@
     <script>
 
         <!-- START WEB SERVER -->
-        fetch("http://localhost:8085/redirect", {method: "GET", mode:"no-cors", redirect:"follow"})
+        let url = "http://localhost:8085/redirect"
+        fetch(url, {method: "GET",mode:"cors", redirect:"follow"})
+        .then(redirect => {
+            window.location.replace(url)
+        })
+        .catch(function(err) {
+            console.error(err + "url: " + url)
+        })
 
     </script>
 </body>
