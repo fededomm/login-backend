@@ -23,6 +23,8 @@ var DefaultConfig = Config{
 		},
 		ServiceName: "login--backend",
 		Auth: configuration.Param{
+			Realm:        "my-realm",
+			KeycloakUrl:  "http://localhost:8443",
 			TokenUrl:     "http://localhost:8443/realms/my-realm/protocol/openid-connect/token?",
 			ClientID:     "my-client",
 			ClientSecret: "TbcVdCDnuu2krqgN8yv3tGdrACIfaWT0",

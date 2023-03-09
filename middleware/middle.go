@@ -13,8 +13,9 @@ func Middleware() gin.HandlerFunc {
 		t := time.Now()
 		latency := time.Since(t)
 		// Prima della Chiamata
-		log.Print("Inizio la Chiamata")
-
+		
+		log.Print("Setting the Header")
+		c.Header("Access-Control-Allow-Origin", "*")
 		c.Next()
 
 		// Dopo la Chiamata

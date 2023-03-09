@@ -54,8 +54,11 @@ func (r *Rest) Token(c *gin.Context) {
 	c.JSON(200, gin.H{"body": b})
 }
 
-func (r *Rest) TestRedirect(c *gin.Context) {
-	c.Header("Location", "http://localhost:8443/realms/my-realm/protocol/openid-connect/auth?response_type=code&client_id=my-client&redirect_uri=http://127.0.0.1:8085/x")
-	c.Header("Access-Control-Allow-Origin", "http://localhost:8443/")
+func (r *Rest) VerifyToken(c *gin.Context) {
+	fmt.Print("!")
+}
+
+func TestRedirect(c *gin.Context) {
+	c.Header("Location", "http://localhost:8443/realms/my-realm/protocol/openid-connect/auth?response_type=code&client_id=my-client&redirect_uri=http://127.0.0.1:8085/")
 	c.Status(302)
 }

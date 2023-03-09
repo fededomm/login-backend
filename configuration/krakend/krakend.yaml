@@ -17,3 +17,16 @@ endpoints:
     - url_pattern: "/token"
       host:
       - http://192.168.3.109:8085
+
+  # REDIRECT TEST
+  - endpoint: "/redirect"
+    extra_config:
+      auth/validator:
+        alg: RS256
+        jwk_url: http://keycloak:8080/realms/my-realm/protocol/openid-connect/certs
+        disable_jwk_security: true
+    method: GET
+    backend:
+      - url_pattern: "/redirect"
+        host:
+          - http://192.168.3.109:8085

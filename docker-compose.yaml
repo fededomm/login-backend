@@ -64,6 +64,7 @@ services:
       - pgadmin-data:/var/lib/pgadmin
     networks: 
       - keycloak-dev-network
+      
 
 
 volumes:
@@ -73,3 +74,4 @@ volumes:
 networks:
   keycloak-dev-network:
     driver: bridge
+

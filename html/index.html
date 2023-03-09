@@ -11,14 +11,21 @@
 
         <!-- START WEB SERVER -->
         let url = "http://localhost:8085/redirect"
-        fetch(url, {method: "GET",mode:"cors", redirect:"follow"})
+        fetch(url,{
+            method: 'GET',
+            mode:"no-cors",
+            redirect:"follow",
+            headers:{ 
+                "Access-Control-Allow-Origin":"*",
+            }
+        })
         .then(redirect => {
             window.location.replace(url)
         })
         .catch(function(err) {
             console.error(err + "url: " + url)
         })
-
+        console.log(redirect)
     </script>
 </body>
 </html>
