@@ -13,7 +13,6 @@ func Init(serviceName string, host *configuration.RouterConfig, tokenUrl string)
 	router := gin.Default()
 
 	//cors configuration
-
 	router.Use(cors.New(cors.Config{
 		AllowOrigins:     []string{"*"},
 		AllowMethods:     []string{"GET", "POST", "PUT", "DELETE", "OPTIONS", "HEAD"},
@@ -21,14 +20,16 @@ func Init(serviceName string, host *configuration.RouterConfig, tokenUrl string)
 		ExposeHeaders:    []string{"Content-Length"},
 		AllowCredentials: true,
 	}))
+	
 	//router.Use(middleware.Middleware())
 
 	rt := new(Rest)
 	rt.Auth.TokenUrl = tokenUrl
+	endpoints := router.Group("/api/v1")
+	{
+		endpoints.GET("/redirect", TestRedirect)
+		endpoints.GET("/token", rt.Token)
 
-	router.GET("/gocloak", rt.VerifyToken)
-	router.GET("/redirect", TestRedirect)
-	router.GET("/token", rt.Token)
+	}
 	router.Run(host.Router)
-
 }
